@@ -1,0 +1,37 @@
+library(pROC)
+train <- read.csv("train_data.csv",stringsAsFactors = F,row.names = 1)
+test <- read.csv("test_data.csv",stringsAsFactors = F,row.names = 1)
+
+###  XGboost  ###
+library(xgboost)
+library(Matrix)
+library(verification)
+traindata1 <- data.matrix(train)  ## 
+traindata2 <- Matrix(as.matrix(train[,1:10]),sparse=T)  ## 
+traindata3 <- factor(train$label,levels = c(0,1))   ### 
+traindata4 <- list(data=traindata2,label=traindata3)  ### candidate training data
+dtrain <- xgb.DMatrix(data = traindata4$data, label = as.character(traindata4$label))
+set.seed(565)
+mxgb4m <- xgboost(data = dtrain,   
+                  objective='binary:logistic',
+                  nround=100, 
+                  nfold = 5,  
+                  max_depth=5,  
+                  subsample = 0.8,
+                  colsample_bytree = 0.8,
+                  eta=0.8,
+                  eval_metric = "error")
+XG_pred_train <- predict(mxgb4m,as.matrix(train[,1:10]),type = "response")
+roc(train$label,XG_pred_train)
+XG_pred_test <- predict(mxgb4m,as.matrix(test[,1:10]),type = "response")
+roc(test$label,XG_pred_test)
+
+
+
+
+
+
+
+
+
+  
