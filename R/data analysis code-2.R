@@ -10,7 +10,7 @@ cal_cv=function(x){
 cv_result1 <- apply(data, 1, cal_cv) 
 cv_result1 <- cv_result1[cv_result1 %>% order %>% rev]
 #write.csv(cv_result1,"gene_cv.csv",quote = F)
-cv_result2 <- apply(data, 2, cal_cv) # 在每一列上应用自定义cal_cv函数
+cv_result2 <- apply(data, 2, cal_cv) # 
 cv_result2 <- cv_result2[cv_result2 %>% order %>% rev]
 #write.csv(cv_result2,"ROI_cv.csv",quote = F)
 
