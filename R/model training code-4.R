@@ -1,3 +1,4 @@
+### The train_data.csv was upload in ITHtyper/R/train_data.csv   
 train <- read.csv("train_data.csv",stringsAsFactors = F,
                   row.names = 1,check.names = F)
 ###  XGboost  ###
