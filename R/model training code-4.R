@@ -4,9 +4,9 @@ train <- read.csv("train_data.csv",stringsAsFactors = F,
 library(xgboost)
 library(Matrix)
 library(verification)
-traindata1 <- data.matrix(...)  ## 
-traindata2 <- Matrix(as.matrix(...,sparse=T)  ## 
-traindata3 <- factor(label,levels = c(0,1))   ### 
+traindata1 <- data.matrix(train)  ## 
+traindata2 <- Matrix(as.matrix(train[,1:10]),sparse=T)  ## 
+traindata3 <- factor(train$label,levels = c(0,1))   ### 
 traindata4 <- list(data=traindata2,label=traindata3)  ### candidate training data
 dtrain <- xgb.DMatrix(data = traindata4$data, label = as.character(traindata4$label))
 mxgb4m <- xgboost(data = dtrain,   
